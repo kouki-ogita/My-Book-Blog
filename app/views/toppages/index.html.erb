@@ -1,8 +1,12 @@
-<div class="center jumbotron">
-  <div class="text-center">
-    <h1>My Book Blog</h1>
-    <h2>お気に入りの本や漫画について感想を伝え合おう！</h2>
-    <button type="button" class="btn btn-primary">ログイン</button>
-    <%= link_to '新規登録', signup_path, class: 'btn btn-primary' %>
-  </div>
-</div>
+<% if logged_in? %>
+  <p><%= current_user.name %>がログイン</p>
+<% else %>
+    <div class="center jumbotron">
+      <div class="text-center">
+        <h1>My Book Blog</h1>
+        <h2>お気に入りの本や漫画について感想を伝え合おう！</h2>
+        <%= link_to 'ログイン', login_path, class: 'btn btn-primary' %>
+        <%= link_to '新規登録', signup_path, class: 'btn btn-primary' %>
+      </div>
+    </div>
+<% end %>
