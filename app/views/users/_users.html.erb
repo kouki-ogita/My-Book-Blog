@@ -1,13 +1,25 @@
 <% if users.any? %>
-  
-  <% users.each do |user| %>
-    <div class="card" style="width: 18rem;">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title"><%= link_to user.name, user_path(user) %></h5>
-      </div>
+  <div class="container">
+    <div class="row">
+      <% users.each do |user| %>
+        <div class="col-md-3">
+          <div class="card" style="width: 18rem;">
+            <div class="column flex-direction:row">    
+              <div class="card-body">
+                <% if user.image? %>
+                  <%= image_tag user.image.to_s, class: "card-img-top" %>
+                <% else %>  
+                  <%= image_tag "/assets/defaultuser.png", class: "card-img-top" %>
+                <% end %>
+              </div> 
+              <div class="card-footer">
+                <h5 class="card-title"><%= link_to user.name, user_path(user) %></h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-  
-    <%= paginate users %>
+  </div>
+  <%= paginate users %>
 <% end %>
