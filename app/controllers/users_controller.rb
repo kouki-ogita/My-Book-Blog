@@ -14,7 +14,6 @@ class UsersController < ApplicationController
   end 
   
   def create
-    
     @user = User.new(user_params)
     if @user.save
       flash[:success] = '新規登録できました！'
@@ -29,7 +28,6 @@ class UsersController < ApplicationController
   end 
   
   def update 
-    
     if @user.update(user_params)
       flash[:success] = 'ユーザー情報を編集しました。'
       redirect_to @user

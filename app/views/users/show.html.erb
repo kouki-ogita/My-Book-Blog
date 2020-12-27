@@ -1,12 +1,12 @@
 <div class="text-center">
   <% if current_user == @user %>
-    <h1><i class="fas fa-user-circle"></i>  <%= @user.name %>のマイページ</h1>
+    <h1><%= @user.name %>のマイページ</h1>
   <% else %>
-    <h1><i class="fas fa-user-circle"></i>  ユーザーページ</h1>
+    <h1>ユーザーページ</h1>
   <% end %>  
 </div>
 
-<div class="container">
+<div class="container user-top">
   <div class="row">
     <div class="col-md-3">
       <div class="card" style="width: 18rem;">
@@ -24,6 +24,7 @@
         </div>
       </div>
     </div>
+    
     <div class="offset-md-1 col-md-8" >
       <div class="card">
         <div class="column flex-direction:row">
@@ -31,7 +32,7 @@
             <h5 class="card-title"><i class="far fa-id-card"></i> 自己紹介、プロフィール<h5>
           </div>
           <div class="card-body">
-            <h6 class="card-text"><%= @user.profile.gsub(/\r\n|\r|\n/, "<br>") %></h6>
+            <h6 class="card-text"><%= @user.profile %></h6>
           </div>
         </div>
       </div>
@@ -39,17 +40,57 @@
   </div>
 </div>
 
-<div class="container">
-  <div class="row">
-    
-  </div>
-</div>  
-
 <% unless current_user == @user %>
-<p>フォローする<p>
+<button type="button" class="btn btn-info">フォローする</button>
 <% end %>
 
 <% if current_user == @user %>
-  <p><%= link_to 'プロフィール編集', edit_user_path(@user) %></p>
-  <p><%= link_to '退会する', user_path, method: :delete, data: { confirm: "本当に退会してもよろしいですか？" } %></p>
+  <%= link_to 'プロフィール編集', edit_user_path(@user), type: "button", class: "btn btn-success" %>
+  <%= link_to '退会する', user_path, method: :delete, data: { confirm: "本当に退会してもよろしいですか？" }, type: "button", class: "btn btn-danger" %>
 <% end %>  
+
+<div class="menu">
+  <h5>メニュー</h5>
+  <ul class="nav nav-tabs nav-pills">
+    <li class="nav-item">
+      <a class="nav-link active" href="#">投稿  <span class="badge badge-dark">0</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">フォロー  <span class="badge badge-dark">0</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">フォロワー  <span class="badge badge-dark">0</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">いいね  <span class="badge badge-dark">0</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">カテゴリー  <span class="badge badge-dark">0</span></a>
+    </li>
+  </ul>
+</div>
+
+<h2><%= @user.name %>の書籍一覧<h2>
+  
+<div class="container">
+  <div class="row">
+    <% @user.posts.each do |post| %>
+      <div class="col-md-3">
+        <div class="card" style="width: 18rem;">
+          <div class="column flex-direction:row">    
+            <div class="card-body">
+              <% if post.image? %>
+                <%= image_tag post.image.to_s, class: "card-img-top" %>
+              <% else %>  
+                <%= image_tag "/assets/defaultpost.png", class: "card-img-top" %>
+              <% end %>
+            </div> 
+            <div class="card-footer">
+              <h5 class="card-title"><%= link_to post.title, post_path(post) %></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
