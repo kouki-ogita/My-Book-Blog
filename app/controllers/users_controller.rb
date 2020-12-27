@@ -1,12 +1,14 @@
 class UsersController < ApplicationController
-  before_action :user_find, only: [:show, :edit, :update, :destroy]
-  before_action :require_user_logged_in, only: [:edit, :update, :destroy]
+  before_action :user_find, only: [:show, :edit, :update, :destroy, :followings, :followers]
+  before_action :require_user_logged_in, only: [:edit, :update, :destroy, :followings, :followers]
   
   def index 
     @users = User.order(id: :desc).page(params[:page]).per(50)
   end 
   
   def show
+    @posts = @user.posts.order(id: :desc).page(params[:page]).per(50)
+    counts(@user)
   end 
   
   def new 
@@ -28,6 +30,7 @@ class UsersController < ApplicationController
   end 
   
   def update 
+    
     if @user.update(user_params)
       flash[:success] = 'ユーザー情報を編集しました。'
       redirect_to @user
@@ -42,6 +45,16 @@ class UsersController < ApplicationController
     flash[:success] = '退会しました。'
     redirect_to root_url
   end 
+  
+  def followings
+    @followings = @user.followings.page(params[:page])
+    counts(@user)
+  end
+  
+  def followers
+    @followers = @user.followers.page(params[:page])
+    counts(@user)
+  end
   
   private
   

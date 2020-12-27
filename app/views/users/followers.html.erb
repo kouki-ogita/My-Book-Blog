@@ -1,4 +1,4 @@
-<%= render 'profile', user: @user %>
+<%= render 'profile', users: @followings %>
 
 <div class="menu">
   <h5>メニュー</h5>
@@ -21,26 +21,4 @@
   </ul>
 </div>
 
-  
-<div class="container">
-  <div class="row">
-    <% @user.posts.each do |post| %>
-      <div class="col-md-3">
-        <div class="card" style="width: 18rem;">
-          <div class="column flex-direction:row">    
-            <div class="card-body">
-              <% if post.image? %>
-                <%= image_tag post.image.to_s, class: "card-img-top" %>
-              <% else %>  
-                <%= image_tag "/assets/defaultpost.png", class: "card-img-top" %>
-              <% end %>
-            </div> 
-            <div class="card-footer">
-              <h5 class="card-title"><%= link_to post.title, post_path(post) %></h5>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div>
+<%= render 'users', users: @followers %>

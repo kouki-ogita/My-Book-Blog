@@ -1,0 +1,48 @@
+<div class="text-center">
+  <% if current_user == @user %>
+    <h1><%= @user.name %>のマイページ</h1>
+  <% else %>
+    <h1>ユーザーページ</h1>
+  <% end %>  
+</div>
+
+<div class="container user-top">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card" style="width: 18rem;">
+        <div class="column flex-direction:row">    
+          <div class="card-body">
+            <% if @user.image? %>
+              <%= image_tag @user.image.to_s, class: "card-img-top" %>
+            <% else %>  
+              <%= image_tag "/assets/defaultuser.png", class: "card-img-top" %>
+            <% end %>
+          </div> 
+          <div class="card-footer">
+            <h5 class="card-title"><%= @user.name %> </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="offset-md-1 col-md-8" >
+      <div class="card">
+        <div class="column flex-direction:row">
+          <div class="card-header">    
+            <h5 class="card-title"><i class="far fa-id-card"></i> 自己紹介、プロフィール<h5>
+          </div>
+          <div class="card-body">
+            <h6 class="card-text"><%= simple_format(h(@user.profile)) %></h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render 'relationships/follow_button', user: @user  %>
+
+<% if current_user == @user %>
+  <%= link_to 'プロフィール編集', edit_user_path(@user), type: "button", class: "btn btn-success" %>
+  <%= link_to '退会する', user_path, method: :delete, data: { confirm: "本当に退会してもよろしいですか？" }, type: "button", class: "btn btn-danger" %>
+<% end %>  
