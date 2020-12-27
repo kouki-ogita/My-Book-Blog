@@ -1,4 +1,4 @@
-<%= render 'profile', users: @followings %>
+<%= render 'profile', user: @user %>
 
 <div class="menu">
   <h5>メニュー</h5>
@@ -13,7 +13,7 @@
       <a href="<%= followers_user_path(@user) %>" class="nav-link <%= 'active' if current_page?(followers_user_path(@user)) %>">フォロワー  <span class="badge badge-dark"><%= @count_followers %></span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">いいね  <span class="badge badge-dark">0</span></a>
+      <a href="<%= likes_user_path(@user) %>" class="nav-link <%= 'active' if current_page?(likes_user_path(@user)) %>">いいね  <span class="badge badge-dark"><%= @count_favorites %></span></a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">カテゴリー  <span class="badge badge-dark">0</span></a>

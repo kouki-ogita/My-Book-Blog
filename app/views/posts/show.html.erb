@@ -47,6 +47,8 @@
   </div>
 </div>
 
+<%= render 'likes/favorite_button', post: @post %>
+
 <% if current_user == @post.user %>
   <%= link_to '編集', edit_post_path(@post), type: "button", class: "btn btn-success" %>
   <%= link_to '削除', post_path, method: :delete, data: { confirm: "本当に削除してもよろしいですか？" }, type: "button", class: "btn btn-danger" %>
