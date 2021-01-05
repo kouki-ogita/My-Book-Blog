@@ -1,46 +1,5 @@
 <%= render 'profile', user: @user %>
 
-<div class="menu">
-  <h5>メニュー</h5>
-  <ul class="nav nav-tabs nav-pills">
-    <li class="nav-item">
-      <a href="<%= user_path(@user) %>" class="nav-link <%= 'active' if current_page?(user_path(@user)) %>">投稿  <span class="badge badge-dark"><%= @count_posts %></span></a>
-    </li>
-    <li class="nav-item">
-      <a href="<%= followings_user_path(@user) %>" class="nav-link <%= 'active' if current_page?(followings_user_path(@user)) %>">フォロー  <span class="badge badge-dark"><%= @count_followings %></span></a>
-    </li>
-    <li class="nav-item">
-      <a href="<%= followers_user_path(@user) %>" class="nav-link <%= 'active' if current_page?(followers_user_path(@user)) %>">フォロワー  <span class="badge badge-dark"><%= @count_followers %></span></a>
-    </li>
-    <li class="nav-item">
-      <a href="<%= likes_user_path(@user) %>" class="nav-link <%= 'active' if current_page?(likes_user_path(@user)) %>">いいね  <span class="badge badge-dark"><%= @count_favorites %></span></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">カテゴリー  <span class="badge badge-dark">0</span></a>
-    </li>
-  </ul>
-</div>
+<%= render 'menu', user: @user %>
 
-  
-<div class="container">
-  <div class="row">
-    <% @user.posts.each do |post| %>
-      <div class="col-md-3">
-        <div class="card" style="width: 18rem;">
-          <div class="column flex-direction:row">    
-            <div class="card-body">
-              <% if post.image? %>
-                <%= image_tag post.image.to_s, class: "card-img-top" %>
-              <% else %>  
-                <%= image_tag "/assets/defaultpost.png", class: "card-img-top" %>
-              <% end %>
-            </div> 
-            <div class="card-footer">
-              <h5 class="card-title"><%= link_to post.title, post_path(post) %></h5>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div>
+<%= render 'posts/posts', posts: @posts %>

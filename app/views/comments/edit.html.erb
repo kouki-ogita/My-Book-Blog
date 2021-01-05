@@ -1,0 +1,11 @@
+<div class="text-center">
+  <h1>コメント編集</h1>
+</div>
+
+<%= form_with(model: @comment, url: comment_path(@comment), local: true) do |f| %>
+<div class="form-group">
+  <%= f.label :remark, 'コメント投稿欄' %>
+  <%= f.text_area :remark, class: 'form-control', size: '20x5' %>
+</div>
+<%= f.submit 'コメントを編集する', class: 'btn btn-primary btn-block' %>
+<% end %>

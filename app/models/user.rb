@@ -8,7 +8,7 @@ class User < ApplicationRecord
   validates :profile, length: { maximum: 300 }
   mount_uploader :image, ImageUploader
   
-  has_many :posts
+  has_many :posts, dependent: :destroy
   has_many :relationships, dependent: :destroy
   has_many :followings, through: :relationships, source: :follow
   has_many :reverses_of_relationship, class_name: 'Relationship', foreign_key: 'follow_id', dependent: :destroy
@@ -29,7 +29,7 @@ class User < ApplicationRecord
     self.followings.include?(other_user)
   end
   
-  has_many :likes
+  has_many :likes, dependent: :destroy
   has_many :favorites, through: :likes, source: :post
   
   def favorite(post)
@@ -44,4 +44,6 @@ class User < ApplicationRecord
   def favoriting?(post)
     self.favorites.include?(post)
   end 
+  
+  has_many :comments, dependent: :destroy
 end

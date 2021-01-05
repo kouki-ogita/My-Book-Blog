@@ -1,11 +1,11 @@
 <div class="text-center">
-  <h1>投稿ページ<h1>
+  <h1><%= @post.title %><h1>
 </div>
 
 <div class="container">
   <div class="row">
     <div class="col-md-3">
-      <div class="card" style="width: 10rem;">
+      <div class="card" style="width: 20rem;">
         <div class="column flex-direction:row">    
           <div class="card-body">
             <% if @post.image? %>
@@ -18,19 +18,12 @@
       </div>
     </div>
     
-    <div class="col-md-6" >
-      <div class="card">
-        <div class="column flex-direction:row">
-          <div class="card-body">
-            <h6 class="card-text"><%= @post.title %></h6>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="col-md-3">
+    <div class="offset-md-5 col-md-3">
       <div class="card" style="width: 10rem;">
         <div class="column flex-direction:row">    
+          <div class="card-header">
+            <h6 class="card-title">投稿者</h6>
+          </div>
           <div class="card-body">
             <% if @post.user.image? %>
               <%= image_tag @post.user.image.to_s, class: "card-img-top" %>
@@ -44,14 +37,58 @@
         </div>
       </div>
     </div>
+  
   </div>
 </div>
 
 <%= render 'likes/favorite_button', post: @post %>
+
+<%= link_to 'いいねしたユーザー一覧', likes_post_path(@post), type: "button", class: "btn btn-success" %>
 
 <% if current_user == @post.user %>
   <%= link_to '編集', edit_post_path(@post), type: "button", class: "btn btn-success" %>
   <%= link_to '削除', post_path, method: :delete, data: { confirm: "本当に削除してもよろしいですか？" }, type: "button", class: "btn btn-danger" %>
 <% end %>  
 
-<%= simple_format(h(@post.content)) %>
+<div class="card">
+  <div class="card-body">
+    <%= simple_format(h(@post.content)) %>
+  </div>
+</div>  
+
+<% if logged_in? %>
+  <%= form_with(model: [@post, @comment], url: post_comments_path(@post, @comment), method: :post, local: true) do |f| %>
+    <div class="form-group">
+      <%= f.label :remark, 'コメント投稿欄' %>
+      <%= f.text_area :remark, class: 'form-control', size: '20x5' %>
+    </div>
+    <%= f.submit 'コメントを投稿する', class: 'btn btn-primary btn-block' %>
+  <% end %>
+<% end %>  
+
+<h5>コメント一覧</h5>
+<% @comments.each do |comment| %>
+  <div class="comment">
+    <div class="comment-user-image" style="width: 5rem;">
+      <% if comment.user.image? %>
+        <%= image_tag comment.user.image.to_s, class: "card-img-top" %>
+      <% else %>  
+        <%= image_tag "/assets/defaultuser.png", class: "card-img-top" %>
+      <% end %>
+    </div>
+    <div class="comment-user-name">
+      <%= comment.user.name %>
+    </div>
+    <% if current_user == comment.user %>
+      <%= link_to '編集', edit_comment_path(comment), type: "button", class: "btn btn-success" %>
+      <%= link_to '削除', comment_path(comment), method: :delete, data: { confirm: "本当に削除してもよろしいですか？" }, type: "button", class: "btn btn-danger" %>
+    <% end %>  
+    <div class="comment-remark">
+      <%= comment.remark %>
+    </div>
+  </div>
+<% end %>
+
+
+
+

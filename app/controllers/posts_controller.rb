@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :post_find, only: [:show, :edit, :update]
+  before_action :post_find, only: [:show, :edit, :update, :destroy]
   before_action :require_user_logged_in, only: [:new, :create, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update, :destroy]
   
@@ -9,6 +9,9 @@ class PostsController < ApplicationController
   end 
   
   def show
+    @user = @post.user
+    @comment = Comment.new
+    @comments = @post.comments.order(id: :desc)
   end 
   
   def new 
@@ -32,7 +35,7 @@ class PostsController < ApplicationController
   def update
     if @post.update(post_params)
       flash[:success] = '書籍の投稿内容を編集しました！'
-      redirect_to @post
+      redirect_to post_path(@post)
     else 
       flash[:danger] = '書籍の内容の編集に失敗しました。'
       render :edit
@@ -43,6 +46,10 @@ class PostsController < ApplicationController
     @post.destroy
     flash[:success] = '書籍の投稿を削除しました。'
     redirect_back(fallback_location: root_path)
+  end 
+  
+  def likes
+    
   end 
   
   private
