@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :post_find, only: [:show, :edit, :update, :destroy]
+  before_action :post_find, only: [:show, :edit, :update, :destroy, :favoriteds]
   before_action :require_user_logged_in, only: [:new, :create, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update, :destroy]
   
@@ -48,8 +48,8 @@ class PostsController < ApplicationController
     redirect_back(fallback_location: root_path)
   end 
   
-  def likes
-    
+  def favoriteds
+    @favoriteds = @post.favoriteds.page(params[:page])
   end 
   
   private

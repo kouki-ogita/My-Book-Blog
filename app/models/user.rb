@@ -9,8 +9,12 @@ class User < ApplicationRecord
   mount_uploader :image, ImageUploader
   
   has_many :posts, dependent: :destroy
+  
+  #フォロー機能 自分→相手へフォロー#
   has_many :relationships, dependent: :destroy
   has_many :followings, through: :relationships, source: :follow
+  
+  #フォロー機能 相手→自分をフォロー#
   has_many :reverses_of_relationship, class_name: 'Relationship', foreign_key: 'follow_id', dependent: :destroy
   has_many :followers, through: :reverses_of_relationship, source: :user
   
@@ -29,6 +33,7 @@ class User < ApplicationRecord
     self.followings.include?(other_user)
   end
   
+  #いいね機能 自分→投稿をいいね#
   has_many :likes, dependent: :destroy
   has_many :favorites, through: :likes, source: :post
   

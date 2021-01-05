@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :posts do
     resources :comments, only: [:create]
     member do 
-      get :likes
+      get :favoriteds
     end 
   end 
   

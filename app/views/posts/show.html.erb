@@ -43,7 +43,7 @@
 
 <%= render 'likes/favorite_button', post: @post %>
 
-<%= link_to 'いいねしたユーザー一覧', likes_post_path(@post), type: "button", class: "btn btn-success" %>
+<%= link_to 'いいねしたユーザー一覧', favoriteds_post_path(@post), type: "button", class: "btn btn-success" %>
 
 <% if current_user == @post.user %>
   <%= link_to '編集', edit_post_path(@post), type: "button", class: "btn btn-success" %>

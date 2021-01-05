@@ -20,7 +20,6 @@ class CommentsController < ApplicationController
   end
 
   def update
-    
     if @comment.update(comment_params_update)
       flash[:success] = '投稿したコメントを編集しました！'
       redirect_to post_path(@comment.post)
