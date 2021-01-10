@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get :followings
       get :followers
       get :likes
+      get :categories
     end 
   end 
   
@@ -21,6 +22,7 @@ Rails.application.routes.draw do
     end 
   end 
   
+  resources :categories, only: [:show, :new, :create, :edit, :update, :destroy]
   resources :comments, only: [:edit, :update, :destroy]
   resources :relationships, only: [:create, :destroy]
   resources :likes, only: [:create, :destroy]

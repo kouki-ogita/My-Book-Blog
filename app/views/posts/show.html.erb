@@ -4,8 +4,8 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-3">
-      <div class="card" style="width: 20rem;">
+    <div class="offset-md-3 col-md-3">
+      <div class="card" style="width: 15rem;">
         <div class="column flex-direction:row">    
           <div class="card-body">
             <% if @post.image? %>
@@ -18,7 +18,7 @@
       </div>
     </div>
     
-    <div class="offset-md-5 col-md-3">
+    <div class="offset-md-3 col-md-3">
       <div class="card" style="width: 10rem;">
         <div class="column flex-direction:row">    
           <div class="card-header">
@@ -43,7 +43,7 @@
 
 <%= render 'likes/favorite_button', post: @post %>
 
-<%= link_to 'いいねしたユーザー一覧', favoriteds_post_path(@post), type: "button", class: "btn btn-success" %>
+<%= link_to 'いいねしたユーザー一覧' , favoriteds_post_path(@post), type: "button", class: "btn btn-success" %><span class="badge badge-dark"><%= @count_favoriteds %></span>
 
 <% if current_user == @post.user %>
   <%= link_to '編集', edit_post_path(@post), type: "button", class: "btn btn-success" %>

@@ -1,0 +1,12 @@
+<div class="text-center">
+  <h1>カテゴリー名の編集</h1>
+</div>
+
+<%= form_with(model: @category, local: true) do |f| %>
+<div class="form-group">
+  <%= f.label :name, 'カテゴリー名' %>
+  <%= f.text_field :name, class: 'form-control'%>
+</div>
+<%= f.submit 'カテゴリー名を編集する', class: 'btn btn-primary btn-block' %>
+<% end %>
+

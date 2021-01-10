@@ -50,7 +50,11 @@ class CommentsController < ApplicationController
   
   def correct_user
     unless current_user.comments
-      redirect_to root_url
+      if logged_in?
+        redirect_to user_path(current_user)
+      else 
+        redirect_to root_url
+      end 
     end 
   end 
 end

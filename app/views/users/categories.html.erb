@@ -1,0 +1,13 @@
+<%= render 'profile', user: @user %>
+
+<%= render 'menu', user: @user %>
+
+<h5>カテゴリー一覧</h5>
+
+<% if current_user == @user %>
+  <%= link_to 'カテゴリーの新規作成', new_category_path, type: "button", class: "btn btn-success" %>
+<% end %>
+
+<% @categories.each do |category| %>
+  <%= link_to category.name, category_path(category) %>
+<% end %>

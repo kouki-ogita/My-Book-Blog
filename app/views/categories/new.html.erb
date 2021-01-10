@@ -1,0 +1,11 @@
+<div class="text-center">
+  <h1>カテゴリー名新規作成</h1>
+</div>
+
+<%= form_with(model: @category, local: true) do |f| %>
+<div class="form-group">
+  <%= f.label :name, 'カテゴリー名' %>
+  <%= f.text_field :name, class: 'form-control'%>
+</div>
+<%= f.submit 'カテゴリーの新規作成', class: 'btn btn-primary btn-block' %>
+<% end %>

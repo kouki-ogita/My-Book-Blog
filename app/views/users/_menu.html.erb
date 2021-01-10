@@ -14,7 +14,7 @@
       <a href="<%= likes_user_path(user) %>" class="nav-link <%= 'active' if current_page?(likes_user_path(user)) %>">いいね  <span class="badge badge-dark"><%= @count_favorites %></span></a>
     </li>
     <li class="nav-item">
-      <a href="" class="nav-link">カテゴリー  <span class="badge badge-dark"></span></a>
+      <a href="<%= categories_user_path(user) %>" class="nav-link <%= 'active' if current_page?(categories_user_path(user)) %>">カテゴリー  <span class="badge badge-dark"><%= @count_categories %></span></a>
     </li>
   </ul>
 </div>

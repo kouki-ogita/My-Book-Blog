@@ -51,4 +51,5 @@ class User < ApplicationRecord
   end 
   
   has_many :comments, dependent: :destroy
+  has_many :categories, dependent: :destroy
 end

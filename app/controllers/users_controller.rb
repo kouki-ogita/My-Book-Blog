@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_action :user_find, only: [:show, :edit, :update, :destroy, :followings, :followers, :likes]
+  before_action :user_find, only: [:show, :edit, :update, :destroy, :followings, :followers, :likes, :categories]
   before_action :require_user_logged_in, only: [:edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
   
   def index 
     @users = User.order(id: :desc).page(params[:page]).per(50)
@@ -61,6 +62,11 @@ class UsersController < ApplicationController
     counts(@user)
   end 
   
+  def categories
+    @categories = @user.categories.page(params[:page])
+    counts(@user)
+  end 
+  
   private
   
   def user_find
@@ -69,6 +75,15 @@ class UsersController < ApplicationController
   
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :image, :profile)
-    
+  end 
+  
+  def correct_user
+    unless current_user
+      if logged_in?
+        redirect_to user_path(current_user)
+      else 
+        redirect_to root_url
+      end 
+    end 
   end 
 end

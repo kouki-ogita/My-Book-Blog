@@ -63,8 +63,12 @@ class PostsController < ApplicationController
   end 
   
   def correct_user
-    unless @post
-      redirect_to root_url
+    unless current_user.posts
+      if logged_in?
+        redirect_to user_path(current_user)
+      else 
+        redirect_to root_url
+      end 
     end 
   end 
 end

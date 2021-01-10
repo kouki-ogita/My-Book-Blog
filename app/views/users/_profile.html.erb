@@ -43,6 +43,7 @@
 <%= render 'relationships/follow_button', user: @user  %>
 
 <% if current_user == @user %>
+  <%= link_to '新規投稿する', new_post_path, type: "button", class: "btn btn-success" %>
   <%= link_to 'プロフィール編集', edit_user_path(@user), type: "button", class: "btn btn-success" %>
   <%= link_to '退会する', user_path, method: :delete, data: { confirm: "本当に退会してもよろしいですか？" }, type: "button", class: "btn btn-danger" %>
 <% end %>  
