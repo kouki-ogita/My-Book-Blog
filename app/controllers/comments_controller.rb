@@ -49,7 +49,7 @@ class CommentsController < ApplicationController
   end 
   
   def correct_user
-    unless current_user.comments
+    unless current_user == @comment.user
       if logged_in?
         redirect_to user_path(current_user)
       else 

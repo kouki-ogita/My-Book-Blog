@@ -4,7 +4,6 @@ class CategoriesController < ApplicationController
   before_action :correct_user, only: [:edit, :update, :destroy]
   
   def show
-    
   end 
   
   def new
@@ -55,7 +54,7 @@ class CategoriesController < ApplicationController
   end 
   
   def correct_user
-    unless current_user.comments
+    unless current_user == @category.user
       if logged_in?
         redirect_to user_path(current_user)
       else 

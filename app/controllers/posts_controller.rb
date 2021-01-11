@@ -70,7 +70,7 @@ class PostsController < ApplicationController
   end
   
   def correct_user
-    unless current_user.posts
+    unless current_user == @post.user
       if logged_in?
         redirect_to user_path(current_user)
       else 
