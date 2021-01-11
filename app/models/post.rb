@@ -11,5 +11,5 @@ class Post < ApplicationRecord
   has_many :favoriteds, through: :reverses_of_like, source: :user
   
   has_many :comments, dependent: :destroy
-  belongs_to :posts
+  belongs_to :category, optional:true
 end

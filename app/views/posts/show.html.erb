@@ -50,6 +50,14 @@
   <%= link_to '削除', post_path, method: :delete, data: { confirm: "本当に削除してもよろしいですか？" }, type: "button", class: "btn btn-danger" %>
 <% end %>  
 
+<div class="category">
+  <% if @post.category_id? %>
+    <h4>カテゴリー：<%= @post.category.name %><h4>
+  <% else %>
+    <h4>カテゴリー：なし<h4>
+  <% end %>
+</div>
+
 <div class="card">
   <div class="card-body">
     <%= simple_format(h(@post.content)) %>
@@ -68,23 +76,25 @@
 
 <h5>コメント一覧</h5>
 <% @comments.each do |comment| %>
-  <div class="comment">
-    <div class="comment-user-image" style="width: 5rem;">
-      <% if comment.user.image? %>
-        <%= image_tag comment.user.image.to_s, class: "card-img-top" %>
-      <% else %>  
-        <%= image_tag "/assets/defaultuser.png", class: "card-img-top" %>
-      <% end %>
-    </div>
-    <div class="comment-user-name">
-      <%= comment.user.name %>
-    </div>
-    <% if current_user == comment.user %>
-      <%= link_to '編集', edit_comment_path(comment), type: "button", class: "btn btn-success" %>
-      <%= link_to '削除', comment_path(comment), method: :delete, data: { confirm: "本当に削除してもよろしいですか？" }, type: "button", class: "btn btn-danger" %>
-    <% end %>  
-    <div class="comment-remark">
-      <%= comment.remark %>
+  <div class="card">
+    <div class="comment">
+      <div class="comment-user-image" style="width: 5rem;">
+        <% if comment.user.image? %>
+          <%= image_tag comment.user.image.to_s, class: "card-img-top" %>
+        <% else %>  
+          <%= image_tag "/assets/defaultuser.png", class: "card-img-top" %>
+        <% end %>
+      </div>
+      <div class="comment-user-name">
+        <%= comment.user.name %>
+      </div>
+      <% if current_user == comment.user %>
+        <%= link_to '編集', edit_comment_path(comment), type: "button", class: "btn btn-success" %>
+        <%= link_to '削除', comment_path(comment), method: :delete, data: { confirm: "本当に削除してもよろしいですか？" }, type: "button", class: "btn btn-danger" %>
+      <% end %>  
+      <div class="comment-remark">
+        <%= comment.remark %>
+      </div>
     </div>
   </div>
 <% end %>

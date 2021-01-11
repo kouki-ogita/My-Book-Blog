@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :post_find, only: [:show, :edit, :update, :destroy, :favoriteds]
+  before_action :category_find, only: [:new, :create, :edit]
   before_action :require_user_logged_in, only: [:new, :create, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update, :destroy]
   
@@ -20,6 +21,8 @@ class PostsController < ApplicationController
   
   def create
     @post = current_user.posts.build(post_params)
+    
+    
     if @post.save
       flash[:success] = '書籍を投稿しました！'
       redirect_to @post
@@ -59,8 +62,12 @@ class PostsController < ApplicationController
   end 
   
   def post_params
-    params.require(:post).permit(:image, :title, :content)
+    params.require(:post).permit(:image, :title, :content, :category_id)
   end 
+  
+  def category_find
+    @categories = current_user.categories
+  end
   
   def correct_user
     unless current_user.posts
@@ -70,5 +77,6 @@ class PostsController < ApplicationController
         redirect_to root_url
       end 
     end 
-  end 
+  end
+  
 end
