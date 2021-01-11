@@ -4,11 +4,11 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update, :destroy]
   
   def index 
-    @users = User.order(id: :desc).page(params[:page]).per(50)
+    @users = User.order(id: :desc).page(params[:page]).per(20)
   end 
   
   def show
-    @posts = @user.posts.order(id: :desc).page(params[:page]).per(50)
+    @posts = @user.posts.order(id: :desc).page(params[:page]).per(20)
     counts(@user)
   end 
   

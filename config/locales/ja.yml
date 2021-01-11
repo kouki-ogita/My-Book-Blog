@@ -8,3 +8,13 @@ ja:
         email: メールアドレス
         password: パスワード
         password_confirmation: パスワード確認用
+        
+ja:
+  activerecord:
+    models:
+      post: 投稿
+    attributes:
+      post:
+        title: タイトル
+        content: 本文
+        

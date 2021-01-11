@@ -16,9 +16,9 @@
                 <h5 class="card-title"><%= link_to post.title, post_path(post) %></h5>
                 <div class="post-category">
                   <% if post.category_id? %>
-                    <h6><span class="badge badge-info"><%= post.category.name %></span><h6>
+                    <h6><span class="badge badge-info"><%= post.category.name %></span></h6>
                   <% else %>
-                    <h6><span class="badge badge-info">分類なし</span><h6>
+                    <h6><span class="badge badge-info">分類なし</span></h6>
                   <% end %>
                 </div>
               </div>
