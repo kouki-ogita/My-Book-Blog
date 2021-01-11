@@ -2,4 +2,35 @@
   <h1>いいねしたユーザー一覧</h1>
 </div>
 
+<div class="container favorited-post">
+  <div class="row">
+    <div class="col-lg-3 col-sm-4">
+      <div class="card" style="width: 15rem;">
+        <div class="column flex-direction:row">    
+          <div class="card-body">
+            <% if @post.image? %>
+              <%= image_tag @post.image.to_s, class: "card-img-top" %>
+            <% else %>  
+              <%= image_tag "/assets/defaultpost.png", class: "card-img-top" %>
+            <% end %>
+          </div> 
+        </div>
+      </div>
+    </div>
+    
+    <div class="offset-lg-4 col-lg-5 offset-sm-1 col-sm-7" >
+      <div class="card">
+        <div class="column flex-direction:row">
+          <div class="card-header">    
+            <h5 class="card-title"><i class="far fa-id-card"></i> タイトル<h5>
+          </div>
+          <div class="card-body">
+            <h6 class="card-text"><%= @post.title %></h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <%= render 'users/users', users: @favoriteds %>
