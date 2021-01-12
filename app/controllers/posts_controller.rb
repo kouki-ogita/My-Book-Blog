@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :post_find_by, only: [:show, :edit, :update, :destroy, :favoriteds]
+  before_action :post_find, only: [:show, :edit, :update, :destroy, :favoriteds]
   before_action :category_find, only: [:new, :create, :edit]
   before_action :require_user_logged_in, only: [:new, :create, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update, :destroy]
@@ -48,7 +48,7 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     flash[:success] = '書籍の投稿を削除しました。'
-    user_path(current_user)
+    redirect_to user_path(current_user)
   end 
   
   def favoriteds
@@ -57,8 +57,8 @@ class PostsController < ApplicationController
   
   private
   
-  def post_find_by
-    @post = Post.find_by(params[:id])
+  def post_find
+    @post = Post.find(params[:id])
   end 
   
   def post_params
