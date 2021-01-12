@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :post_find, only: [:show, :edit, :update, :destroy, :favoriteds]
-  before_action :category_find, only: [:new, :create, :edit]
+  before_action :category_set, only: [:new, :create, :edit, :update]
   before_action :require_user_logged_in, only: [:new, :create, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update, :destroy]
   
@@ -65,7 +65,7 @@ class PostsController < ApplicationController
     params.require(:post).permit(:image, :title, :content, :category_id)
   end 
   
-  def category_find
+  def category_set
     @categories = current_user.categories
   end
   
