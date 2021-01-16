@@ -17,11 +17,14 @@ class PostsController < ApplicationController
   
   def new 
     @post = Post.new
+    
+    unless @categories.any?
+      flash[:info] = 'カテゴリーを指定する場合は先にカテゴリーを登録してください。'
+    end
   end 
   
   def create
     @post = current_user.posts.build(post_params)
-    
     
     if @post.save
       flash[:success] = '書籍を投稿しました！'
